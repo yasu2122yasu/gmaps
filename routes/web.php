@@ -29,11 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::get('/',[PostController::class, 'index'])->name('index');
-Route::get('/', function() {
-    return view('posts/index');
-//viewヘルパはcontrollerやweb.phpからviewフォルダー内のファイルを表示したいときに使います。
-});
 
+Route::get('/', [PostController::class, 'index']);
 
 require __DIR__.'/auth.php';
