@@ -5,16 +5,25 @@
         <title>Blog</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        
-        
+
+<!-- maps javascript api テスト -->        
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <!-- cssは正常に読み込めている -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}" />
+    <script type="module" src="{{ asset('/js/index.js')}}"></script>
+  </head>
 
     </head>
     <body>
-        @foreach ($spots as $spot)
-            <iframe id='map' src='https://www.google.com/maps/embed/v1/place?key={{ config("services.google-map.apikey") }}&q={{ $spot->address }}'
-            width='50%' height='300' frameborder='0'></iframe>
-            <p>{{ $spot->body }}</p>
-        @endforeach
+
+    <!-- maps javascript api テスト --> 
+    <div id="map"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPbum-1zCfQ-5MckvI65yLGuBHgvA0w5c&callback=initMap&v=weekly"
+      defer
+    ></script>
+
     </body>
     
 
