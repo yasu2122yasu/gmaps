@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ResultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/', [PostController::class, 'index']);
+
+
+Route::get('result', [ResultController::class, 'currentLocation'])->name('posts.currentLocation');
 
 require __DIR__.'/auth.php';
