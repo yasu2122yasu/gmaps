@@ -9,17 +9,16 @@ class ResultController extends Controller
     public function currentLocation(Request $request){
         $lat = $request->lat;
         $lng = $request->lng;
-         /* 
+          
         //currentLocationで表示
         return view('posts.currentLocation',[
             //現在地緯度latをbladeへ渡す
             'lat' => $lat,
             //現在地経度lngをbladeへ渡す
             'lng' => $lng,
+            
+            //周辺の場所の情報を渡す
         ]);
-        */
-        return view('posts.currentLocation')->with(['location' => $request]);
-        //return view('posts.currentLocation')->with(['lat' => $request->lat],['lng' => $request->lng]);
-        //return view('posts.currentLocation')->with('lng2',$lng); 
+        
     }
 }
