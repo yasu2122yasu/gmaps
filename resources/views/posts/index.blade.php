@@ -41,7 +41,6 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPbum-1zCfQ-5MckvI65yLGuBHgvA0w5c&callback=initMap&v=weekly"
       defer
     ></script>
-
     </body>
     
 

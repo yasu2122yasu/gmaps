@@ -1,3 +1,4 @@
+var geocoder;
 var infoWindow=[];
 var marker = [];
 var markerData = [ // マーカーを立てる場所名・緯度・経度
@@ -27,7 +28,11 @@ var markerData = [ // マーカーを立てる場所名・緯度・経度
      lng: 139.76543200000003
  }
 ];
+
+
+
 function initMap() {
+    geocoder = new google.maps.Geocoder();
     //現在地の表示
     // google map へ表示するための設定
     latlng = new google.maps.LatLng(lat, lng);
@@ -45,6 +50,11 @@ function initMap() {
         title: '現在地',
     });
     
+    //ジオコーディング
+    let hoge=codeAddress(spot_address[0]);//spot_addres[0]には千葉市役所の住所
+    //console.log(hoge[0]);
+    console.log(hoge[1]);
+    
     //周辺にピンたて
     for (var i = 0; i < markerData.length; i++) {
         const image = "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
@@ -61,12 +71,49 @@ function initMap() {
  
         markerEvent(i); // マーカーにクリックイベントを追加
     }
-}
+    
+}//initmap()の閉じカッコ
 
 // マーカーにクリックイベントを追加
 function markerEvent(i) {
     marker[i].addListener('click', function() { // マーカーをクリックしたとき
       infoWindow[i].open(map, marker[i]); // 吹き出しの表示
     });
+}
+
+
+function codeAddress(a) {
+     var address = a;     //引数で受け取った住所aを変数addressに格納
+     console.log(geocoder);
+     if (geocoder) {
+     geocoder.geocode( { 'address': address,'region': 'jp'},
+    //ここにはconsole.log(a);を置けない
+        function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        //map.setCenter(results[0].geometry.location);//エラーが出るため一度コメントアウト
+       var bounds = new google.maps.LatLngBounds();
+       for (var r in results) {
+            if (results[r].geometry) {
+                var latlng = results[r].geometry.location;
+                bounds.extend(latlng);
+                let lat = latlng.lat();
+                let lng = latlng.lng();
+                //return文は関数を終了させるので上に移動させた
+                console.log('lat:');
+                console.log(lat);
+                console.log("codeAddressは実行されている");
+
+                return [lat, lng];//緯度、経度を配列として返す
+                //return lat;
+                //console.log(a);//リターン文の下だと表示されない
+            }
+       }
+       //map.fitBounds(bounds);
+       }else{
+        alert("Geocode 取得に失敗しました reason: "
+             + status);
+       }
+      });
+     }
 }
 
